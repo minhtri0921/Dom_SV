@@ -1,46 +1,90 @@
 var listStudents = [];
-var header = `<tr><th>id</th>
-<th>name</th>
-<th>toan</th>
-<th>ly</th>
-<th>hoa</th><tr>`
+var header = `<tr>
+  <th>id</th>
+  <th>name</th>
+  <th>toan</th>
+  <th>ly</th>
+  <th>hoa</th>
+</tr>`;
+
 async function getData() {
-    const respone = await axios('http://localhost:3000/students')
-    listStudents = respone.data
-
-    display(listStudents);
+  const response = await axios.get('http://localhost:3000/students');
+  listStudents = response.data;
+  display(listStudents);
 }
-getData()
+
+getData();
+
 async function display(students) {
-    function render(el) {
-        return `<tr><td>${el.id}</td>
-        <td>${el.name}</td>
-        <td>${el.toan}</td>
-        <td>${el.ly}</td>
-        <td>${el.hoa}</td></tr>`
-    }
+  let tableElement = $("#tb1");
+  let str = "";
 
-    let tableElement = $("#tb1")
-    let str = ''
+  function render(el) {
+    return `<tr>
+      <td>${el.id}</td>
+      <td>${el.name}</td>
+      <td>${el.toan}</td>
+      <td>${el.ly}</td>
+      <td>${el.hoa}</td>
+    </tr>`;
+  }
 
-    for (const el of students) {
-        str += render(el)
-    }
+  students.forEach(element => {
+    str += render(element);
+  });
 
-
-    tableElement.html(header + str)
+  tableElement.html(header + str);
 }
-$("button#filter").click(async function () {
-    let listGoodStudents = listStudents.filter(function (el) {
-        return (el.toan + el.ly + el.hoa) / 3 > 7
-    })
 
-    display(listGoodStudents)
-})
+$("button#filter").click(function () {
+  let listGoodStudents = listStudents.filter(function (el) {
+    return (el.toan + el.ly + el.hoa) / 3 > 7;
+  });
 
-$("button#addOneMath").click(async function () {
+  display(listGoodStudents);
+});
+
+$("button#addOneMath").click(function () {
+  listStudents.forEach(element => {
+    element.toan += 1;
+  });
+
+  display(listStudents);
+});
+
+$("button#addProperty").click(async function () {
     listStudents.forEach(element => {
-        element.toan += 1;
+        element.tongDiem = element.toan + element.ly + element.hoa;
     });
-    console.log(listStudents);
-})
+    header = `<tr>
+  <th>id</th>
+  <th>name</th>
+  <th>toan</th>
+  <th>ly</th>
+  <th>hoa</th>
+  <th>Tong Diem</th>
+</tr>`;
+    let tableElement = $("#tb1");
+    let str = "";
+
+    listStudents.forEach(element => {
+        str += `<tr>
+            <td>${element.id}</td>
+            <td>${element.name}</td>
+            <td>${element.toan}</td>
+            <td>${element.ly}</td>
+            <td>${element.hoa}</td>
+            <td>${element.tongDiem}</td>
+        </tr>`;
+    });
+
+    tableElement.html(header + str);
+});
+
+$("button#sort").click(function () {
+    listStudents.sort(function (a, b) {
+      return b.tongDiem - a.tongDiem;
+    });
+  
+    display(listStudents);
+  });
