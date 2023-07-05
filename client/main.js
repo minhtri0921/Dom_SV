@@ -5,60 +5,26 @@ var header = `<tr>
   <th>toan</th>
   <th>ly</th>
   <th>hoa</th>
-<<<<<<< HEAD
-  <th>Chức năng</th>
-</tr>`;
 
-async function getData() {
-    const response = await axios.get('http://localhost:3000/students');
-    listStudents = response.data;
-    display(listStudents);
-=======
+  <th>Chức năng</th>
 </tr>`;
 
 async function getData() {
   const response = await axios.get('http://localhost:3000/students');
   listStudents = response.data;
   display(listStudents);
->>>>>>> 5e989cbfa7a5f5d03649d7df5abf12c1807ffa05
+}
+
+async function getData() {
+  const response = await axios.get('http://localhost:3000/students');
+  listStudents = response.data;
+  display(listStudents);
 }
 
 getData();
 
 async function display(students) {
-<<<<<<< HEAD
-    let tableElement = $("#tb1");
-    let str = "";
 
-    function render(el) {
-        return `<tr>
-      <td>${el.id}</td>
-      <td>${el.name}</td>
-      <td>${el.toan}</td>
-      <td>${el.ly}</td>
-      <td>${el.hoa}</td>
-      <td><button id="update" onclick= "update(${el.id})">Sửa</button>
-      <button id="remove" onclick= "remove(${el.id})">Xóa</button></td>
-    </tr>`;
-    }
-
-    students.forEach(element => {
-        str += render(element);
-    });
-
-    tableElement.html(header + str);
-}
-
-$("button#filter").click(function () {
-    let listGoodStudents = listStudents.filter(function (el) {
-        return (el.toan + el.ly + el.hoa) / 3 > 7;
-    });
-
-    display(listGoodStudents);
-});
-
-$("button#addOneMath").click(function () {
-=======
   let tableElement = $("#tb1");
   let str = "";
 
@@ -69,6 +35,8 @@ $("button#addOneMath").click(function () {
       <td>${el.toan}</td>
       <td>${el.ly}</td>
       <td>${el.hoa}</td>
+      <td><button id="update" onclick= "update(${el.id})">Sửa</button>
+      <button id="remove" onclick= "remove(${el.id})">Xóa</button></td>
     </tr>`;
   }
 
@@ -88,6 +56,36 @@ $("button#filter").click(function () {
 });
 
 $("button#addOneMath").click(function () {
+
+  let tableElement = $("#tb1");
+  let str = "";
+
+  function render(el) {
+    return `<tr>
+      <td>${el.id}</td>
+      <td>${el.name}</td>
+      <td>${el.toan}</td>
+      <td>${el.ly}</td>
+      <td>${el.hoa}</td>
+    </tr>`;
+  }
+
+  students.forEach(element => {
+    str += render(element);
+  });
+
+  tableElement.html(header + str);
+})
+
+$("button#filter").click(function () {
+  let listGoodStudents = listStudents.filter(function (el) {
+    return (el.toan + el.ly + el.hoa) / 3 > 7;
+  });
+
+  display(listGoodStudents);
+})
+
+$("button#addOneMath").click(function () {
   listStudents.forEach(element => {
     element.toan += 1;
   });
@@ -96,22 +94,22 @@ $("button#addOneMath").click(function () {
 });
 
 $("button#addProperty").click(async function () {
->>>>>>> 5e989cbfa7a5f5d03649d7df5abf12c1807ffa05
-    listStudents.forEach(element => {
-        element.tongDiem = element.toan + element.ly + element.hoa;
-    });
-<<<<<<< HEAD
 
-    display(listStudents);
+  listStudents.forEach(element => {
+    element.tongDiem = element.toan + element.ly + element.hoa;
+  });
+
+
+  display(listStudents);
 });
 
 $("button#addProperty").click(async function () {
-    listStudents.forEach(element => {
-        element.tongDiem = element.toan + element.ly + element.hoa;
-    });
-=======
->>>>>>> 5e989cbfa7a5f5d03649d7df5abf12c1807ffa05
-    header = `<tr>
+  listStudents.forEach(element => {
+    element.tongDiem = element.toan + element.ly + element.hoa;
+  });
+
+
+  header = `<tr>
   <th>id</th>
   <th>name</th>
   <th>toan</th>
@@ -119,11 +117,11 @@ $("button#addProperty").click(async function () {
   <th>hoa</th>
   <th>Tong Diem</th>
 </tr>`;
-    let tableElement = $("#tb1");
-    let str = "";
+  let tableElement = $("#tb1");
+  let str = "";
 
-    listStudents.forEach(element => {
-        str += `<tr>
+  listStudents.forEach(element => {
+    str += `<tr>
             <td>${element.id}</td>
             <td>${element.name}</td>
             <td>${element.toan}</td>
@@ -131,22 +129,21 @@ $("button#addProperty").click(async function () {
             <td>${element.hoa}</td>
             <td>${element.tongDiem}</td>
         </tr>`;
-    });
+  });
 
-    tableElement.html(header + str);
+  tableElement.html(header + str);
 });
 
 $("button#sort").click(function () {
-<<<<<<< HEAD
 
-    display(listStudents);
-    listStudents.forEach(element => {
-        element.tongDiem = element.toan + element.ly + element.hoa;
-    });
-    listStudents.sort(function (a, b) {
-        return b.tongDiem - a.tongDiem;
-    });
-    header = `<tr>
+  display(listStudents);
+  listStudents.forEach(element => {
+    element.tongDiem = element.toan + element.ly + element.hoa;
+  });
+  listStudents.sort(function (a, b) {
+    return b.tongDiem - a.tongDiem;
+  });
+  header = `<tr>
   <th>id</th>
   <th>name</th>
   <th>toan</th>
@@ -154,11 +151,11 @@ $("button#sort").click(function () {
   <th>hoa</th>
   <th>Tong Diem</th>
 </tr>`;
-    let tableElement = $("#tb1");
-    let str = "";
+  let tableElement = $("#tb1");
+  let str = "";
 
-    listStudents.forEach(element => {
-        str += `<tr>
+  listStudents.forEach(element => {
+    str += `<tr>
             <td>${element.id}</td>
             <td>${element.name}</td>
             <td>${element.toan}</td>
@@ -166,49 +163,48 @@ $("button#sort").click(function () {
             <td>${element.hoa}</td>
             <td>${element.tongDiem}</td>
         </tr>`;
-    });
+  });
 
-    tableElement.html(header + str);
+  tableElement.html(header + str);
 });
 
 $("button#add").click(async function () {
-    let newName = $("input#name").val()
-    let newMathPoint = $("input#mathpoint").val()
-    let newPhysicalPoint = $("input#physicalpoint").val()
-    let newChemicalPoint = $("input#chemicalpoint").val()
+  let newName = $("input#name").val()
+  let newMathPoint = $("input#mathpoint").val()
+  let newPhysicalPoint = $("input#physicalpoint").val()
+  let newChemicalPoint = $("input#chemicalpoint").val()
 
-    let formData = {
-        name: newName,
-        toan: newMathPoint,
-        ly: newPhysicalPoint,
-        hoa: newChemicalPoint
-    }
+  let formData = {
+    name: newName,
+    toan: newMathPoint,
+    ly: newPhysicalPoint,
+    hoa: newChemicalPoint
+  }
 
-    await axios({
-        method: "POST",
-        url: 'http://localhost:3000/students/add',
-        data: JSON.stringify(formData),
-        headers: { "Content-Type": "application/json" },
-    })
+  await axios({
+    method: "POST",
+    url: 'http://localhost:3000/students/add',
+    data: JSON.stringify(formData),
+    headers: { "Content-Type": "application/json" },
+  })
 
-    getData()
-    $("input#name").val() = ''
-    $("input#mathpoint").val() = ''
-    $("input#physicalpoint").val() = ''
-    $("input#chemicalpoint").val() = ''
+  getData()
+  $("input#name").val() = ''
+  $("input#mathpoint").val() = ''
+  $("input#physicalpoint").val() = ''
+  $("input#chemicalpoint").val() = ''
 })
 async function update(id) {
-    let student = listStudents.find(function (el) {
-        return el.id = id
-    })
-    $("input#name").val(student.name)
+  let student = listStudents.find(function (el) {
+    return el.id = id
+  })
+  $("input#name").val(student.name)
 
-}
-=======
-    listStudents.sort(function (a, b) {
-      return b.tongDiem - a.tongDiem;
-    });
-  
-    display(listStudents);
+
+
+  listStudents.sort(function (a, b) {
+    return b.tongDiem - a.tongDiem;
   });
->>>>>>> 5e989cbfa7a5f5d03649d7df5abf12c1807ffa05
+  display(listStudents);
+};
+
